@@ -13,7 +13,7 @@ public class DB {
 	private static Connection conn = null;
 	
 	public static Connection getConn() {
-		if(conn != null) {
+		if(conn == null) {
 			try {
 				Properties props = loadFile();
 				String url = props.getProperty("dburl");
@@ -45,6 +45,16 @@ public class DB {
 		}
 		catch(IOException io) {
 			throw new DBException(io.getMessage());
+		}
+	}
+	
+	public static <T extends AutoCloseable> void closeStatement(T st) {
+		if (st != null) {
+			try {
+				st.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
