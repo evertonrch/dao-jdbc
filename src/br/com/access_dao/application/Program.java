@@ -1,9 +1,9 @@
-package br.com.dao.application;
+package br.com.access_dao.application;
 
 import java.util.Date;
 
-import br.com.dao.model.entities.Department;
-import br.com.dao.model.entities.Seller;
+import br.com.access_dao.model.entities.Department;
+import br.com.access_dao.model.entities.Seller;
 
 public class Program {
 

@@ -1,4 +1,4 @@
-package br.com.dao.db;
+package br.com.access_dao.db;
 
 public class DBException extends RuntimeException {
 	
