@@ -25,6 +25,13 @@ public class Program {
 		}
 		System.out.println(list.size());
 		
+		System.out.println("\n==== TEST Seller findAll ====");
+		dep = new Department(2, null);
+		list = (List<Seller>) sellerDao.findAll();
+		for(Seller obj : list) {
+			System.out.println(obj);
+		}
+		
 	}
 
 }

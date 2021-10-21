@@ -47,7 +47,7 @@ public class SellerDaoJDBC implements SellerDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			String stmt = "SELECT seller.*, department.Name as DepartName "
+			String stmt = "SELECT seller.*, department.Name AS DepartName "
 					+ "FROM seller INNER JOIN department "
 					+ "ON seller.DepartmentId = department.Id "
 					+ "WHERE seller.Id = ?";
@@ -92,7 +92,36 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public Collection<Seller> findAll() {
-		return null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement("SELECT s.*, d.Name AS DepartName "
+					+ "FROM seller AS s INNER JOIN department AS d ON "
+					+ "s.DepartmentId = d.Id ORDER BY s.Id ");
+			
+			rs = ps.executeQuery();
+			
+			List<Seller> list = new ArrayList<>();
+			Map<Integer, Department> map = new HashMap<>();
+			
+			while(rs.next()) {
+				Department dep = map.get(rs.getInt("DepartmentId"));
+				if(dep == null) {
+					dep = instantiateDepartment(rs);
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+				Seller obj = instantiateSeller(dep, rs);
+				list.add(obj);
+			}
+			return list;			
+		}
+		catch(SQLException se) {
+			throw new DBException(se.getMessage());
+		}
+		finally {
+			DB.closeStatement(rs);
+			DB.closeStatement(ps);
+		}
 	}
 
 	@Override
@@ -101,8 +130,8 @@ public class SellerDaoJDBC implements SellerDao {
 		ResultSet rs = null;		
 		try {
 			ps = conn.prepareStatement("SELECT s.*, "
-								+ "d.Name as DepartName FROM "
-								+ "seller as s INNER JOIN department as d "
+								+ "d.Name AS DepartName FROM "
+								+ "seller AS s INNER JOIN department as d "
 								+ "ON s.DepartmentId = d.Id WHERE "
 								+ "s.DepartmentId = ? ORDER BY s.Name");
 			
