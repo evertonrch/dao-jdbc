@@ -18,6 +18,10 @@ import br.com.access_dao.model.entities.Seller;
 
 public class SellerDaoJDBC implements SellerDao {
 	
+	private static final String selectALL = "SELECT s.*, d.Name AS DepartName "
+			+ "FROM seller AS s INNER JOIN department AS d ON "
+			+ "s.DepartmentId = d.Id ORDER BY s.Id";
+	
 	private Connection conn;
 	
 	public SellerDaoJDBC(Connection conn) {
@@ -95,10 +99,7 @@ public class SellerDaoJDBC implements SellerDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = conn.prepareStatement("SELECT s.*, d.Name AS DepartName "
-					+ "FROM seller AS s INNER JOIN department AS d ON "
-					+ "s.DepartmentId = d.Id ORDER BY s.Id ");
-			
+			ps = conn.prepareStatement(selectALL);			
 			rs = ps.executeQuery();
 			
 			List<Seller> list = new ArrayList<>();
