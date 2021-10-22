@@ -1,5 +1,7 @@
 package br.com.access_dao.application;
 
+
+import java.util.Date;
 import java.util.List;
 
 import br.com.access_dao.model.dao.DaoFactory;
@@ -31,6 +33,11 @@ public class Program {
 		for(Seller obj : list) {
 			System.out.println(obj);
 		}
+		
+		System.out.println("\n==== TEST Seller insert ====");
+		Seller newSeller = new Seller(null , "Pedro da Rocha", "pedro@gmail.com", new Date(), 2300.00, dep);
+		sellerDao.insert(newSeller);
+		System.out.println("Inserted id: " + newSeller.getId());
 		
 	}
 
