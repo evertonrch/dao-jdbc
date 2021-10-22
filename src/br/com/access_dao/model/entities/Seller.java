@@ -25,7 +25,7 @@ public class Seller implements Serializable {
 		this.department = department;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
@@ -41,7 +41,7 @@ public class Seller implements Serializable {
 		return birthDate;
 	}
 	
-	public double getBaseSalary() {
+	public Double getBaseSalary() {
 		return baseSalary;
 	}
 	
