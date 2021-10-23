@@ -10,7 +10,7 @@ import br.com.access_dao.model.dao.SellerDao;
 import br.com.access_dao.model.entities.Department;
 import br.com.access_dao.model.entities.Seller;
 
-public class Program {
+public class ProgramSeller {
 
 	public static void main(String[] args) {
 
