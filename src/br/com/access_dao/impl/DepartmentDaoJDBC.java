@@ -102,9 +102,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				Department dep = new Department();
-				dep.setId(rs.getInt("Id"));
-				dep.setName(rs.getString("Name"));
+				Department dep = instantiateDep(rs);
 				return dep;
 			}
 			return null;						
@@ -116,6 +114,13 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			DB.closeStatement(ps);
 		}
 	}
+	
+	private Department instantiateDep(ResultSet rs) throws SQLException{
+		Department dep = new Department();
+		dep.setId(rs.getInt(1));
+		dep.setName(rs.getString(2));
+		return dep;
+	}	
 
 	@Override
 	public Collection<Department> findAll() {
@@ -128,9 +133,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			List<Department> list = new ArrayList<>();
 			
 			while(rs.next()) {
-				Department dep = new Department();
-				dep.setId(rs.getInt(1));
-				dep.setName(rs.getString(2));
+				Department dep = instantiateDep(rs);
 				list.add(dep);
 			}
 			return list;
