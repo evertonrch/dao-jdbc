@@ -22,6 +22,20 @@ public class ProgramDepartment {
 		Department dep = new Department(null, "Finance");
 		//department.insert(dep);
 		System.out.println("Id : " + dep.getId());
+		
+		
+		System.out.println("======= TESTE update ========");
+		dep = department.findById(4);
+		dep.setName("Administration");
+		department.update(dep);
+		System.out.println("Updated! id: " + dep.getId());
+		
+		
+		
+		System.out.println("======= TESTE findById ========");
+		dep = department.findById(3);
+		System.out.println(dep);
+		
 
 		
 		System.out.println("======= TESTE delete ========");
